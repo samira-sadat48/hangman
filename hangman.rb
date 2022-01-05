@@ -1,3 +1,5 @@
+require_relative 'game'
+
 file = File.open("5desk.txt")
 dictionary = file.readlines.map(&:chomp)
 
@@ -5,3 +7,6 @@ dictionary = file.readlines.map(&:chomp)
 #random line in array
 line = rand(dictionary.size)
 word = dictionary[line]
+
+game = Game.new(word)
+game.start
