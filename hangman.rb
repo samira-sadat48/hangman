@@ -9,4 +9,4 @@ line = rand(dictionary.size)
 word = dictionary[line]
 
 game = Game.new(word)
-game.start
+game.play
