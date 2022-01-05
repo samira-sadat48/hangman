@@ -1,4 +1,7 @@
 file = File.open("5desk.txt")
 dictionary = file.readlines.map(&:chomp)
 
-puts dictionary
+#randomly select a word from dictionary
+#random line in array
+line = rand(dictionary.size)
+word = dictionary[line]
