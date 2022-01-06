@@ -11,7 +11,7 @@ class Game
         @word = random_word
         @word.length.times { @word_clues.push("_")}
 
-        while @guess_countdown > 0  || !(@word_clues.include? '_') #Make a function
+        while not_game_over?
             @guess = ask_player_for_letter
             #if guess exists in word - replace all blanks
             if @word.include?(@guess)
@@ -21,9 +21,11 @@ class Game
                 @guess_countdown -= 1
             end
         end
+
+        puts "Game over!"
     end
     
-    ############################Display functions##########################################
+    #################################################################################
     private
 
     def print_clue(clues)
@@ -62,6 +64,7 @@ class Game
         end
     end
 
-    def game_over?
+    def not_game_over?
+        @guess_countdown > 0  && (@word_clues.include? '_')
     end
 end
