@@ -1,3 +1,9 @@
 require_relative 'game'
 
-Game.new.play
+loop do
+    Game.new.play
+    puts "Play again? Yes(1) or no(2)?"
+    again = gets.chomp.to_i
+    break if again == 2
+end
+

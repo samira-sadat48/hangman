@@ -22,7 +22,7 @@ class Game
             end
         end
 
-        puts "Game over!"
+        game_over
     end
     
     #################################################################################
@@ -66,5 +66,13 @@ class Game
 
     def not_game_over?
         @guess_countdown > 0  && (@word_clues.include? '_')
+    end
+
+    def game_over
+        if !@word_clues.include? '_'
+            puts "You win! The answer is {#@word}."
+        else
+            puts "You lose! The answer is {#@word}."
+        end
     end
 end
