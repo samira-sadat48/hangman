@@ -1,5 +1,7 @@
+require 'yaml'
+
 class Game
-    attr_accessor :word, :guess
+    attr_accessor :word, :word_clues, :guess_countdown, :letters_used 
 
     def initialize
         @word_clues = []
@@ -13,6 +15,11 @@ class Game
 
         while not_game_over?
             @guess = ask_player_for_letter
+            #check if input is 'save'
+            if @guess == 'save'
+                save_game
+                break
+            end
             #if guess exists in word - replace all blanks
             if @word.include?(@guess)
                 replace_blanks_with_letter
@@ -69,10 +76,28 @@ class Game
     end
 
     def game_over
-        if !@word_clues.include? '_'
+        if @guess == "save"
+            puts "You have saved your game to the file output/#{@filename}."
+        elsif !@word_clues.include? '_'
             puts "You win! The answer is {#@word}."
         else
             puts "You lose! The answer is {#@word}."
         end
+    end
+
+    def save_game
+        Dir.mkdir 'output' unless Dir.exist? 'output'
+        puts "Enter a filename. Do not include extension."
+        @filename = gets.chomp + ".yaml"
+        File.open("output/#{@filename}", 'w') { |file| file.write convert_to_yaml }
+    end
+
+    def convert_to_yaml
+        YAML.dump(
+            'word' => @word,
+            'word_clues' => @word_clues,
+            'guess_countdown' => @guess_countdown,
+            'letters_used' => @letters_used
+        )
     end
 end
